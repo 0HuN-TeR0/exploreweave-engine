@@ -136,7 +136,7 @@ const Index = () => {
       <section className="bg-muted py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Why Choose NepalTrail</h2>
+            <h2 className="text-4xl font-bold mb-4">Why Choose Rajan Rides</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Experience the difference with our professional team and exceptional service
             </p>
@@ -188,7 +188,7 @@ const Index = () => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Mountain className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold">NepalTrail</span>
+                <span className="text-xl font-bold">Rajan Rides</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Your trusted partner for unforgettable Himalayan adventures.
@@ -224,7 +224,7 @@ const Index = () => {
           </div>
           
           <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>© 2025 NepalTrail. All rights reserved.</p>
+            <p>© 2025 Rajan Rides. All rights reserved.</p>
           </div>
         </div>
       </footer>
