@@ -14,7 +14,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-2 group">
             <Mountain className="h-8 w-8 text-primary group-hover:text-secondary transition-colors" />
             <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Rajan Rides
+              MTB Tours Nepal
             </span>
           </Link>
 
