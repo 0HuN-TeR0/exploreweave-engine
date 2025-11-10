@@ -8,115 +8,107 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Nepal-inspired color palette - Himalayan blues, sunset oranges, earthy tones */
-    --background: 0 0% 100%;
-    --foreground: 220 15% 20%;
+    /* Himalayan Rides-inspired dark theme with golden accents */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 15% 20%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 20%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Primary: Deep Himalayan Blue */
-    --primary: 210 85% 45%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 85% 65%;
+    /* Primary: Bold Golden Yellow */
+    --primary: 45 100% 51%;
+    --primary-foreground: 0 0% 0%;
+    --primary-glow: 45 100% 60%;
 
-    /* Secondary: Warm Sunset Orange */
-    --secondary: 25 95% 55%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary: Dark Gray */
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%;
 
-    /* Muted: Soft Mountain Gray */
-    --muted: 220 15% 95%;
-    --muted-foreground: 220 15% 45%;
+    /* Muted: Dark Gray */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    /* Accent: Prayer Flag Red */
-    --accent: 5 85% 55%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent: Bright Yellow */
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 0%;
 
     /* Destructive */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 210 85% 45%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 45 100% 51%;
 
-    --radius: 0.75rem;
+    --radius: 0rem;
 
     /* Custom design tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(210 85% 45%) 0%, hsl(25 95% 55%) 100%);
-    --gradient-sunset: linear-gradient(180deg, hsl(25 95% 55%) 0%, hsl(5 85% 55%) 100%);
-    --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+    --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);
     
-    --shadow-soft: 0 2px 20px -5px hsl(220 15% 20% / 0.1);
-    --shadow-card: 0 4px 30px -10px hsl(220 15% 20% / 0.15);
-    --shadow-elevated: 0 10px 40px -10px hsl(220 15% 20% / 0.2);
+    --shadow-soft: 0 2px 20px -5px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 4px 30px -10px hsl(0 0% 0% / 0.6);
+    --shadow-elevated: 0 10px 40px -10px hsl(0 0% 0% / 0.7);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 45 100% 51%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 45 100% 51%;
   }
 
   .dark {
-    --background: 220 20% 12%;
+    --background: 0 0% 7%;
     --foreground: 0 0% 98%;
 
-    --card: 220 20% 15%;
+    --card: 0 0% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 220 20% 15%;
+    --popover: 0 0% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 210 85% 55%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 85% 75%;
+    --primary: 45 100% 51%;
+    --primary-foreground: 0 0% 0%;
+    --primary-glow: 45 100% 60%;
 
-    --secondary: 25 95% 60%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 20% 20%;
-    --muted-foreground: 220 15% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 5 85% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 25%;
-    --input: 220 20% 25%;
-    --ring: 210 85% 55%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 45 100% 51%;
     
-    --gradient-hero: linear-gradient(135deg, hsl(210 85% 55%) 0%, hsl(25 95% 60%) 100%);
-    --gradient-sunset: linear-gradient(180deg, hsl(25 95% 60%) 0%, hsl(5 85% 60%) 100%);
-    --shadow-soft: 0 2px 20px -5px hsl(0 0% 0% / 0.3);
-    --shadow-card: 0 4px 30px -10px hsl(0 0% 0% / 0.4);
-    --shadow-elevated: 0 10px 40px -10px hsl(0 0% 0% / 0.5);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+    --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);
+    --shadow-soft: 0 2px 20px -5px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 4px 30px -10px hsl(0 0% 0% / 0.6);
+    --shadow-elevated: 0 10px 40px -10px hsl(0 0% 0% / 0.7);
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 45 100% 51%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 45 100% 51%;
   }
 }
 

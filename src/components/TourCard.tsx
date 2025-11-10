@@ -30,7 +30,7 @@ const TourCard = ({
   difficulty,
 }: TourCardProps) => {
   return (
-    <Card className="group overflow-hidden hover:shadow-elevated transition-all duration-300">
+    <Card className="group overflow-hidden hover:shadow-elevated transition-all duration-300 bg-card border-border">
       <div className="relative overflow-hidden aspect-[4/3]">
         <img
           src={image}
@@ -38,7 +38,7 @@ const TourCard = ({
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
         />
         {difficulty && (
-          <Badge className="absolute top-4 right-4 bg-secondary">
+          <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground font-bold">
             {difficulty}
           </Badge>
         )}
@@ -50,7 +50,7 @@ const TourCard = ({
           <span>{location}</span>
         </div>
         
-        <h3 className="text-xl font-semibold line-clamp-2 group-hover:text-primary transition-colors">
+        <h3 className="text-xl font-bold line-clamp-2 group-hover:text-primary transition-colors">
           {title}
         </h3>
         
@@ -67,7 +67,7 @@ const TourCard = ({
         
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
-            <Star className="h-4 w-4 fill-secondary text-secondary" />
+            <Star className="h-4 w-4 fill-primary text-primary" />
             <span className="font-semibold">{rating}</span>
           </div>
           <span className="text-sm text-muted-foreground">({reviews} reviews)</span>
@@ -76,11 +76,11 @@ const TourCard = ({
       
       <CardFooter className="p-6 pt-0 flex items-center justify-between">
         <div>
-          <p className="text-sm text-muted-foreground">From</p>
-          <p className="text-2xl font-bold text-primary">${price}</p>
+          <p className="text-sm text-muted-foreground uppercase tracking-wide">From</p>
+          <p className="text-2xl font-black text-foreground">${price}</p>
         </div>
         <Link to={`/tours/${id}`}>
-          <Button variant="hero">View Details</Button>
+          <Button variant="outline" size="sm">Learn More</Button>
         </Link>
       </CardFooter>
     </Card>

@@ -7,40 +7,30 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <Mountain className="h-8 w-8 text-primary group-hover:text-secondary transition-colors" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="text-xl md:text-2xl font-bold text-foreground italic tracking-tight">
               MTB Tours Nepal
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors">
-              Home
+          <div className="hidden md:flex items-center gap-4">
+            <Link to="/tours" className="text-foreground hover:text-primary transition-colors font-medium uppercase text-sm tracking-wide">
+              MTB Tours
             </Link>
-            <Link to="/tours" className="text-foreground hover:text-primary transition-colors">
-              Tours
-            </Link>
-            <Link to="/destinations" className="text-foreground hover:text-primary transition-colors">
-              Destinations
-            </Link>
-            <Link to="/about" className="text-foreground hover:text-primary transition-colors">
-              About
-            </Link>
-            <Button variant="hero" size="sm">
-              Book Now
+            <Button variant="outline" size="sm" className="ml-4">
+              Menu
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            className="md:hidden p-2 hover:bg-muted transition-colors"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -50,35 +40,14 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden pb-4 space-y-2">
             <Link
-              to="/"
-              className="block px-4 py-2 rounded-lg hover:bg-muted transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
               to="/tours"
-              className="block px-4 py-2 rounded-lg hover:bg-muted transition-colors"
+              className="block px-4 py-2 hover:bg-muted transition-colors uppercase text-sm tracking-wide"
               onClick={() => setIsOpen(false)}
             >
-              Tours
+              MTB Tours
             </Link>
-            <Link
-              to="/destinations"
-              className="block px-4 py-2 rounded-lg hover:bg-muted transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Destinations
-            </Link>
-            <Link
-              to="/about"
-              className="block px-4 py-2 rounded-lg hover:bg-muted transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
-            <Button variant="hero" size="sm" className="w-full">
-              Book Now
+            <Button variant="outline" size="sm" className="w-full">
+              Menu
             </Button>
           </div>
         )}

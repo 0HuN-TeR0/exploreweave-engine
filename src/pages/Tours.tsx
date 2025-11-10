@@ -4,7 +4,7 @@ import TourCard from "@/components/TourCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter } from "lucide-react";
+import { Search } from "lucide-react";
 import tourEverest from "@/assets/tour-everest.jpg";
 import tourAnnapurna from "@/assets/tour-annapurna.jpg";
 import tourKathmandu from "@/assets/tour-kathmandu.jpg";
@@ -71,33 +71,33 @@ const Tours = () => {
       <Navbar />
       
       {/* Header */}
-      <section className="bg-gradient-to-r from-primary to-secondary py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
+      <section className="bg-muted py-32 mt-20">
+        <div className="container mx-auto px-4">
+          <h1 className="text-5xl md:text-7xl font-black uppercase text-primary mb-4">
             Explore Our Tours
           </h1>
-          <p className="text-xl text-primary-foreground/90 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl">
             Discover breathtaking adventures and cultural experiences across Nepal
           </p>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="bg-card rounded-lg shadow-card p-6">
+      <section className="container mx-auto px-4 py-8 -mt-8">
+        <div className="bg-card border border-border p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-2 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search tours..."
-                className="pl-10"
+                className="pl-10 bg-background border-border"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             
             <Select value={selectedDuration} onValueChange={setSelectedDuration}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-background border-border">
                 <SelectValue placeholder="Duration" />
               </SelectTrigger>
               <SelectContent>
@@ -109,7 +109,7 @@ const Tours = () => {
             </Select>
             
             <Select value={selectedDifficulty} onValueChange={setSelectedDifficulty}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-background border-border">
                 <SelectValue placeholder="Difficulty" />
               </SelectTrigger>
               <SelectContent>
