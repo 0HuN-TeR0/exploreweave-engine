@@ -22,6 +22,9 @@ type Tour = {
   reviews: number | null;
   short_description: string | null;
   long_description: string | null;
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_keywords: string | null;
   published: boolean;
   sort_order: number;
 };
@@ -29,7 +32,7 @@ type Tour = {
 const empty = (): Partial<Tour> => ({
   slug: "", title: "", image_url: "", duration: "", location: "", group_size: "",
   price: "", difficulty: "Moderate", rating: 4.8, reviews: 0, short_description: "",
-  long_description: "", published: true, sort_order: 0,
+  long_description: "", seo_title: "", seo_description: "", seo_keywords: "", published: true, sort_order: 0,
 });
 
 const ToursAdmin = () => {
@@ -63,34 +66,53 @@ const ToursAdmin = () => {
 
   return (
     <AdminLayout>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-4xl font-black uppercase">Tours</h1>
-        <Button onClick={() => setEditing(empty())}><Plus className="h-4 w-4 mr-2" />New tour</Button>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-4xl font-black uppercase tracking-tight">Tours</h1>
+          <p className="text-muted-foreground mt-2">Manage your tour catalog and their SEO settings.</p>
+        </div>
+        <Button className="rounded-xl shadow-lg shadow-primary/25" onClick={() => setEditing(empty())}><Plus className="h-4 w-4 mr-2" />New tour</Button>
       </div>
 
-      <div className="border border-border divide-y divide-border">
-        {tours.length === 0 && <div className="p-6 text-muted-foreground">No tours yet. Add your first one.</div>}
+      <div className="bg-card/40 backdrop-blur-md border border-border/50 shadow-xl rounded-2xl overflow-hidden">
+        {tours.length === 0 && <div className="p-10 text-center text-muted-foreground">No tours yet. Add your first one.</div>}
+        <div className="divide-y divide-border/50">
         {tours.map((t) => (
-          <div key={t.id} className="p-4 flex items-center gap-4">
-            {t.image_url && <img src={t.image_url} alt={t.title} className="h-16 w-24 object-cover" />}
+          <div key={t.id} className="p-4 md:p-6 flex items-center gap-6 hover:bg-card/60 transition-colors">
+            {t.image_url ? (
+              <img src={t.image_url} alt={t.title} className="h-16 w-24 md:h-20 md:w-32 object-cover rounded-lg shadow-md" />
+            ) : (
+              <div className="h-16 w-24 md:h-20 md:w-32 bg-muted rounded-lg flex items-center justify-center text-xs text-muted-foreground">No image</div>
+            )}
             <div className="flex-1 min-w-0">
-              <div className="font-bold truncate">{t.title}</div>
-              <div className="text-xs text-muted-foreground">{t.location} • {t.duration} • ${t.price} • {t.published ? "Published" : "Draft"}</div>
+              <div className="font-bold text-lg truncate mb-1">{t.title}</div>
+              <div className="text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
+                <span className="inline-flex items-center rounded-full bg-accent px-2 py-0.5 text-xs font-medium">{t.published ? "Published" : "Draft"}</span>
+                <span>•</span>
+                <span>{t.location}</span>
+                <span>•</span>
+                <span>{t.duration}</span>
+                <span>•</span>
+                <span className="font-semibold">${t.price}</span>
+              </div>
             </div>
-            <Button size="sm" variant="outline" onClick={() => setEditing(t)}><Pencil className="h-4 w-4" /></Button>
-            <Button size="sm" variant="outline" onClick={() => remove(t.id)}><Trash2 className="h-4 w-4" /></Button>
+            <div className="flex gap-2">
+              <Button size="icon" variant="outline" className="rounded-xl" onClick={() => setEditing(t)}><Pencil className="h-4 w-4" /></Button>
+              <Button size="icon" variant="outline" className="rounded-xl hover:bg-destructive hover:text-destructive-foreground hover:border-destructive" onClick={() => remove(t.id)}><Trash2 className="h-4 w-4" /></Button>
+            </div>
           </div>
         ))}
+        </div>
       </div>
 
       {editing && (
-        <div className="fixed inset-0 bg-background/90 z-50 overflow-y-auto p-4 md:p-10">
-          <div className="max-w-3xl mx-auto border border-border bg-card p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-black uppercase">{editing.id ? "Edit tour" : "New tour"}</h2>
-              <Button variant="outline" size="sm" onClick={() => setEditing(null)}><X className="h-4 w-4" /></Button>
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 overflow-y-auto p-4 md:p-10 flex items-start justify-center">
+          <div className="w-full max-w-4xl border border-border/50 bg-card shadow-2xl rounded-2xl p-6 md:p-8 mt-10 mb-10">
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-border/50">
+              <h2 className="text-2xl font-black uppercase tracking-tight">{editing.id ? "Edit tour" : "New tour"}</h2>
+              <Button variant="ghost" size="icon" className="rounded-xl" onClick={() => setEditing(null)}><X className="h-5 w-5" /></Button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div><Label>Title *</Label><Input value={editing.title ?? ""} onChange={(e) => setEditing({ ...editing, title: e.target.value })} /></div>
               <div><Label>Slug *</Label><Input value={editing.slug ?? ""} onChange={(e) => setEditing({ ...editing, slug: e.target.value })} placeholder="e.g. annapurna-circuit" /></div>
               <div className="md:col-span-2"><Label>Image URL</Label><Input value={editing.image_url ?? ""} onChange={(e) => setEditing({ ...editing, image_url: e.target.value })} placeholder="Paste an image URL from Media library" /></div>
@@ -108,12 +130,21 @@ const ToursAdmin = () => {
                   Published (visible to public)
                 </label>
               </div>
-              <div className="md:col-span-2"><Label>Short description</Label><Textarea rows={2} value={editing.short_description ?? ""} onChange={(e) => setEditing({ ...editing, short_description: e.target.value })} /></div>
-              <div className="md:col-span-2"><Label>Long description</Label><Textarea rows={6} value={editing.long_description ?? ""} onChange={(e) => setEditing({ ...editing, long_description: e.target.value })} /></div>
+              <div className="md:col-span-2"><Label>Short description</Label><Textarea rows={2} className="rounded-xl" value={editing.short_description ?? ""} onChange={(e) => setEditing({ ...editing, short_description: e.target.value })} /></div>
+              <div className="md:col-span-2"><Label>Long description</Label><Textarea rows={6} className="rounded-xl" value={editing.long_description ?? ""} onChange={(e) => setEditing({ ...editing, long_description: e.target.value })} /></div>
+              
+              <div className="md:col-span-2 mt-6 pt-6 border-t border-border/50">
+                <h3 className="font-bold uppercase text-sm mb-4 flex items-center gap-2">
+                  <span className="w-1.5 h-4 bg-primary rounded-full inline-block" /> SEO Settings
+                </h3>
+              </div>
+              <div className="md:col-span-2"><Label>SEO Title</Label><Input className="rounded-xl" value={editing.seo_title ?? ""} onChange={(e) => setEditing({ ...editing, seo_title: e.target.value })} placeholder="Optimal: 50-60 chars" /></div>
+              <div className="md:col-span-2"><Label>Meta Description</Label><Textarea rows={2} className="rounded-xl" value={editing.seo_description ?? ""} onChange={(e) => setEditing({ ...editing, seo_description: e.target.value })} placeholder="Optimal: 150-160 chars" /></div>
+              <div className="md:col-span-2"><Label>Meta Keywords</Label><Input className="rounded-xl" value={editing.seo_keywords ?? ""} onChange={(e) => setEditing({ ...editing, seo_keywords: e.target.value })} placeholder="Comma separated keywords" /></div>
             </div>
-            <div className="mt-6 flex gap-2 justify-end">
-              <Button variant="outline" onClick={() => setEditing(null)}>Cancel</Button>
-              <Button onClick={save}>Save</Button>
+            <div className="mt-8 flex gap-3 justify-end border-t border-border/50 pt-6">
+              <Button variant="outline" className="rounded-xl" onClick={() => setEditing(null)}>Cancel</Button>
+              <Button className="rounded-xl shadow-lg shadow-primary/25" onClick={save}>Save Tour</Button>
             </div>
           </div>
         </div>

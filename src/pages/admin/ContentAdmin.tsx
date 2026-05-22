@@ -27,6 +27,12 @@ const sections: Section[] = [
     { name: "email", label: "Contact email" },
     { name: "phone", label: "Phone" },
   ]},
+  { key: "seo_settings", label: "Global SEO Settings", fields: [
+    { name: "global_title", label: "Global Title" },
+    { name: "global_description", label: "Global Description", type: "textarea" },
+    { name: "global_keywords", label: "Global Keywords (comma separated)", type: "textarea" },
+    { name: "og_image", label: "Open Graph Image URL" },
+  ]},
 ];
 
 const ContentAdmin = () => {
@@ -52,12 +58,20 @@ const ContentAdmin = () => {
 
   return (
     <AdminLayout>
-      <h1 className="text-4xl font-black uppercase mb-6">Site Content</h1>
-      <div className="space-y-8 max-w-2xl">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-4xl font-black uppercase tracking-tight">Site Content</h1>
+          <p className="text-muted-foreground mt-2">Manage global settings, sections, and SEO tags.</p>
+        </div>
+      </div>
+      <div className="space-y-8 max-w-3xl">
         {sections.map((s) => (
-          <div key={s.key} className="border border-border p-6">
-            <h2 className="text-xl font-bold uppercase mb-4">{s.label}</h2>
-            <div className="space-y-3">
+          <div key={s.key} className="bg-card/40 backdrop-blur-md border border-border/50 shadow-xl rounded-2xl p-6 md:p-8 transition-all hover:shadow-2xl hover:bg-card/50">
+            <h2 className="text-xl font-black uppercase mb-6 flex items-center gap-2">
+              <span className="w-2 h-6 bg-primary rounded-full inline-block" />
+              {s.label}
+            </h2>
+            <div className="space-y-5">
               {s.fields.map((f) => (
                 <div key={f.name}>
                   <Label>{f.label}</Label>
@@ -75,7 +89,9 @@ const ContentAdmin = () => {
                   )}
                 </div>
               ))}
-              <Button onClick={() => save(s.key)}>Save {s.label}</Button>
+              <Button className="mt-4 rounded-xl shadow-lg shadow-primary/25" onClick={() => save(s.key)}>
+                Save {s.label}
+              </Button>
             </div>
           </div>
         ))}
