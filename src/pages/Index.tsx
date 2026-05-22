@@ -120,7 +120,19 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredTours.map((tour) => (
-              <TourCard key={tour.id} {...tour} />
+              <TourCard
+                key={tour.id}
+                id={tour.slug ?? tour.id}
+                title={tour.title}
+                image={tour.image_url ?? tour.image}
+                duration={tour.duration ?? ""}
+                location={tour.location ?? ""}
+                groupSize={tour.group_size ?? tour.groupSize ?? ""}
+                price={tour.price ?? ""}
+                rating={tour.rating ?? 4.8}
+                reviews={tour.reviews ?? 0}
+                difficulty={tour.difficulty ?? undefined}
+              />
             ))}
           </div>
 
@@ -213,7 +225,14 @@ const Index = () => {
           </div>
           
           <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>© 2025 MTB Tours Nepal. All rights reserved.</p>
+            <p>{footer.text ?? "© MTB Tours Nepal. All rights reserved."}</p>
+            {(footer.email || footer.phone) && (
+              <p className="mt-2">
+                {footer.email && <a href={`mailto:${footer.email}`} className="hover:text-foreground">{footer.email}</a>}
+                {footer.email && footer.phone && " • "}
+                {footer.phone && <a href={`tel:${footer.phone}`} className="hover:text-foreground">{footer.phone}</a>}
+              </p>
+            )}
           </div>
         </div>
       </footer>
