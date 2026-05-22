@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Marquee from "@/components/Marquee";
@@ -9,70 +10,37 @@ import heroImage from "@/assets/hero-nepal.jpg";
 import tourEverest from "@/assets/tour-everest.jpg";
 import tourAnnapurna from "@/assets/tour-annapurna.jpg";
 import tourKathmandu from "@/assets/tour-kathmandu.jpg";
-import tourPokhara from "@/assets/tour-pokhara.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { useSiteContent } from "@/hooks/useSiteContent";
+
+const fallbackTours = [
+  { id: "1", slug: "everest-base-camp", title: "Everest Base Camp Trek", image_url: tourEverest, duration: "14 days", location: "Khumbu, Nepal", group_size: "Max 12", price: "1,299", rating: 4.9, reviews: 247, difficulty: "Challenging" },
+  { id: "2", slug: "annapurna-circuit", title: "Annapurna Circuit Adventure", image_url: tourAnnapurna, duration: "18 days", location: "Annapurna, Nepal", group_size: "Max 10", price: "1,499", rating: 4.8, reviews: 189, difficulty: "Moderate" },
+  { id: "3", slug: "kathmandu-cultural", title: "Kathmandu Cultural Heritage Tour", image_url: tourKathmandu, duration: "5 days", location: "Kathmandu Valley", group_size: "Max 15", price: "599", rating: 4.7, reviews: 312, difficulty: "Easy" },
+];
 
 const Index = () => {
-  const featuredTours = [
-    {
-      id: "1",
-      title: "Everest Base Camp Trek",
-      image: tourEverest,
-      duration: "14 days",
-      location: "Khumbu, Nepal",
-      groupSize: "Max 12",
-      price: "1,299",
-      rating: 4.9,
-      reviews: 247,
-      difficulty: "Challenging",
-    },
-    {
-      id: "2",
-      title: "Annapurna Circuit Adventure",
-      image: tourAnnapurna,
-      duration: "18 days",
-      location: "Annapurna, Nepal",
-      groupSize: "Max 10",
-      price: "1,499",
-      rating: 4.8,
-      reviews: 189,
-      difficulty: "Moderate",
-    },
-    {
-      id: "3",
-      title: "Kathmandu Cultural Heritage Tour",
-      image: tourKathmandu,
-      duration: "5 days",
-      location: "Kathmandu Valley",
-      groupSize: "Max 15",
-      price: "599",
-      rating: 4.7,
-      reviews: 312,
-      difficulty: "Easy",
-    },
-  ];
+  const { content } = useSiteContent();
+  const [featuredTours, setFeaturedTours] = useState<any[]>(fallbackTours);
+
+  useEffect(() => {
+    supabase.from("tours").select("*").eq("published", true).order("sort_order").limit(3).then(({ data }) => {
+      if (data && data.length > 0) setFeaturedTours(data);
+    });
+  }, []);
+
+  const hero = content.hero ?? {};
+  const marquee = content.marquee ?? {};
+  const about = content.about ?? {};
+  const footer = content.footer ?? {};
 
   const features = [
-    {
-      icon: Mountain,
-      title: "Hand Crafted Adventures",
-      description: "Off the beaten track experiences curated by passionate local riders who live and breathe the Himalayas",
-    },
-    {
-      icon: Shield,
-      title: "Transparent Pricing",
-      description: "No hidden fees, no surprises. What you see is what you get—accommodation, meals, permits, and full support",
-    },
-    {
-      icon: Users,
-      title: "Full Support Team",
-      description: "Hassle-free riding with backup crew, mechanical support, and luggage transport. Focus on the ride, we handle the rest",
-    },
-    {
-      icon: Award,
-      title: "Local Expertise",
-      description: "Led by seasoned local riders with years of mountain experience and deep cultural knowledge",
-    },
+    { icon: Mountain, title: "Hand Crafted Adventures", description: "Off the beaten track experiences curated by passionate local riders who live and breathe the Himalayas" },
+    { icon: Shield, title: "Transparent Pricing", description: "No hidden fees, no surprises. What you see is what you get—accommodation, meals, permits, and full support" },
+    { icon: Users, title: "Full Support Team", description: "Hassle-free riding with backup crew, mechanical support, and luggage transport. Focus on the ride, we handle the rest" },
+    { icon: Award, title: "Local Expertise", description: "Led by seasoned local riders with years of mountain experience and deep cultural knowledge" },
   ];
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -91,15 +59,15 @@ const Index = () => {
         
         <div className="relative z-10 container mx-auto px-4">
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-primary uppercase leading-none mb-6 drop-shadow-2xl">
-            Earth's<br />
-            Highest<br />
-            <span className="italic">Playground</span>
+            {hero.title ?? "Earth's Highest Playground"}
           </h1>
+          {hero.subtitle && <p className="text-xl md:text-2xl text-foreground max-w-2xl">{hero.subtitle}</p>}
         </div>
       </section>
 
       {/* Marquee */}
-      <Marquee text="Guided mountain bike tours across the Himalayas crafted by passionate riders, for riders who seek real adventure, rugged terrain, and the ride of a lifetime.       " />
+      <Marquee text={marquee.text ?? "Guided mountain bike tours across the Himalayas       "} />
+
 
       {/* World's Best Tours Section */}
       <section className="container mx-auto px-4 py-20">
@@ -152,7 +120,19 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredTours.map((tour) => (
-              <TourCard key={tour.id} {...tour} />
+              <TourCard
+                key={tour.id}
+                id={tour.slug ?? tour.id}
+                title={tour.title}
+                image={tour.image_url ?? tour.image}
+                duration={tour.duration ?? ""}
+                location={tour.location ?? ""}
+                groupSize={tour.group_size ?? tour.groupSize ?? ""}
+                price={tour.price ?? ""}
+                rating={tour.rating ?? 4.8}
+                reviews={tour.reviews ?? 0}
+                difficulty={tour.difficulty ?? undefined}
+              />
             ))}
           </div>
 
@@ -245,7 +225,14 @@ const Index = () => {
           </div>
           
           <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>© 2025 MTB Tours Nepal. All rights reserved.</p>
+            <p>{footer.text ?? "© MTB Tours Nepal. All rights reserved."}</p>
+            {(footer.email || footer.phone) && (
+              <p className="mt-2">
+                {footer.email && <a href={`mailto:${footer.email}`} className="hover:text-foreground">{footer.email}</a>}
+                {footer.email && footer.phone && " • "}
+                {footer.phone && <a href={`tel:${footer.phone}`} className="hover:text-foreground">{footer.phone}</a>}
+              </p>
+            )}
           </div>
         </div>
       </footer>

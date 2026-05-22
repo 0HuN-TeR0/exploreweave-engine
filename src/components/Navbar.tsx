@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Mountain } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAdmin } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md">
@@ -22,9 +24,11 @@ const Navbar = () => {
             <Link to="/tours" className="text-foreground hover:text-primary transition-colors font-medium uppercase text-sm tracking-wide">
               MTB Tours
             </Link>
-            <Button variant="outline" size="sm" className="ml-4">
-              Menu
-            </Button>
+            <Link to={isAdmin ? "/admin" : "/auth"}>
+              <Button variant="outline" size="sm" className="ml-4">
+                {isAdmin ? "Admin" : "Sign in"}
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
